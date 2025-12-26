@@ -206,6 +206,9 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
+        // Set this to your Render URL after deployment, e.g., 'https://your-app.onrender.com'
+        const BACKEND_URL = '';
+
         async function sendChat(e) {
             e.preventDefault();
             const text = userInput.value.trim();
@@ -215,7 +218,7 @@
             userInput.value = '';
 
             try {
-                const res = await fetch('/api/chat', {
+                const res = await fetch(`${BACKEND_URL}/api/chat`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: text })
@@ -229,7 +232,7 @@
 
         async function clearChat() {
             if (confirm('آیا از پاک کردن گفتگو اطمینان دارید؟')) {
-                await fetch('/api/clear', { method: 'POST' });
+                await fetch(`${BACKEND_URL}/api/clear`, { method: 'POST' });
                 chatBox.innerHTML = '<div class="message assistant">گفتگو پاک شد. چطور می‌توانم کمک‌تان کنم؟</div>';
             }
         }

@@ -9,9 +9,6 @@ from fastapi import APIRouter, HTTPException, UploadFile, File
 from pydantic import BaseModel
 
 from backend.config import settings
-from backend.services.chat_service import chat_service
-from backend.services.document_service import document_service
-from backend.services.vector_store import vector_store_service
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +47,7 @@ async def chat(request: ChatRequest):
         raise HTTPException(status_code=400, detail="پیام نمی‌تواند خالی باشد")
     
     try:
+        from backend.services.chat_service import chat_service
         result = await chat_service.chat(request.message)
         return ChatResponse(
             response=result["response"],
@@ -87,6 +85,9 @@ async def upload_document(file: UploadFile = File(...)):
         logger.info(f"Saved uploaded file: {file_path}")
         
         # Process the document
+        from backend.services.document_service import document_service
+        from backend.services.vector_store import vector_store_service
+        
         documents = document_service.load_single_pdf(file_path)
         chunks = document_service.chunk_documents(documents)
         
@@ -114,6 +115,7 @@ async def get_status():
     """
     Get the current status of the AI assistant.
     """
+    from backend.services.vector_store import vector_store_service
     return StatusResponse(
         status="ready",
         documents_loaded=vector_store_service.get_document_count(),
@@ -127,6 +129,7 @@ async def clear_history():
     """
     Clear the conversation history.
     """
+    from backend.services.chat_service import chat_service
     chat_service.clear_history()
     return {"success": True, "message": "تاریخچه گفتگو پاک شد"}
 
@@ -137,6 +140,9 @@ async def reindex_documents():
     Clear and rebuild the vector store from all documents.
     """
     try:
+        from backend.services.vector_store import vector_store_service
+        from backend.services.document_service import document_service
+        
         # Clear existing
         vector_store_service.clear_collection()
         

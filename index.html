@@ -206,8 +206,8 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        // Set this to your Render URL after deployment
-        const BACKEND_URL = 'https://ai-assistant-3xya.onrender.com';
+        // Auto-detect backend URL - uses current origin for local dev
+        const BACKEND_URL = window.location.origin;
 
         async function sendChat(e) {
             e.preventDefault();

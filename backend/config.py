@@ -20,10 +20,9 @@ class Settings(BaseSettings):
     
     # Model Configuration
     llm_model: str = os.getenv("LLM_MODEL", "llama-3.3-70b-versatile")
-    embedding_model: str = os.getenv(
-        "EMBEDDING_MODEL", 
-        "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    )
+    # Using all-MiniLM-L6-v2: extremely lightweight (22M params, ~340MB peak RAM)
+    # Hardcoded to ensure it's used regardless of .env settings for RAM optimization
+    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     
     # Paths - relative to project root
     project_root: Path = Path(__file__).parent.parent

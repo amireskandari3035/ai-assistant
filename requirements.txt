@@ -10,14 +10,13 @@ python-multipart==0.0.18
 langchain==0.3.14
 langchain-groq==0.2.3
 langchain-community==0.3.14
-langchain-huggingface==0.1.2
 
 # Document Processing
 pypdf==5.1.0
 
 # Vector Store & Embeddings
-chromadb==0.5.23
 sentence-transformers==3.3.1
+numpy==1.26.4
 
 # Utilities
 pydantic==2.10.4

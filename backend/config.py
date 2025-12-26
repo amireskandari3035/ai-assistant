@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     project_root: Path = Path(__file__).parent.parent
     documents_path: Path = project_root / "data" / "documents"
     vectorstore_path: Path = project_root / "vectorstore"
-    frontend_path: Path = project_root / "frontend"
+    frontend_path: Path = project_root
     default_booklet_path: Path = project_root / "booklet.pdf"
     
     # Server Configuration

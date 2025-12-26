@@ -91,10 +91,8 @@ app.add_middleware(
 # Include routers
 app.include_router(chat.router)
 
-# Mount static files for frontend
+# Path to frontend files
 frontend_path = settings.frontend_path
-if frontend_path.exists():
-    app.mount("/static", StaticFiles(directory=str(frontend_path)), name="static")
 
 
 @app.get("/")
